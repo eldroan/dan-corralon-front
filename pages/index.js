@@ -1,65 +1,58 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { EmailIcon, LockIcon } from "@chakra-ui/icons";
+import {
+  Button,
+  Flex,
+  Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
-export default function Home() {
+const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const navigateToHome = () => router.push("/home");
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Flex height="100vh" alignItems="center" justifyContent="center">
+      <Flex direction="column" p={12} rounded={6} background="gray.700">
+        <Heading mb={6}>Ingresar al corralon!</Heading>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={<EmailIcon />} />
+          <Input
+            placeholder="cachito@gmail.com"
+            variant="filled"
+            mb={3}
+            type="email"
+          />
+        </InputGroup>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" children={<LockIcon />} />
+          <Input
+            placeholder="**********"
+            variant="filled"
+            type={showPassword ? "text" : "password"}
+          />
+          <InputRightElement w="6rem">
+            <Button
+              h="1.75rem"
+              size="sm"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Ocultar" : "Mostrar"}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
-}
+        <Button mt={6} onClick={navigateToHome}>
+          Ingresar
+        </Button>
+      </Flex>
+    </Flex>
+  );
+};
+export default Login;
