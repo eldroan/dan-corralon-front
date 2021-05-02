@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const config = {
   initialColorMode: "dark",
@@ -7,11 +8,14 @@ const config = {
 };
 
 const darkModeOnlyMode = extendTheme({ config });
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={darkModeOnlyMode}>
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </ChakraProvider>
   );
 }
