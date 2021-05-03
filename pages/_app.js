@@ -14,7 +14,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={darkModeOnlyMode}>
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <asasd>
+          <Component {...pageProps} />
+        </asasd>{" "}
       </QueryClientProvider>
     </ChakraProvider>
   );

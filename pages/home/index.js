@@ -1,29 +1,67 @@
+import {
+  Box,
+  Divider,
+  Flex,
+  Grid,
+  GridItem,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import { useState, useRef } from "react";
 import { useQuery } from "react-query";
 import { getPedidos } from "../../api";
-import { OrderListElement } from "../../components";
+import { OrderList, OrderDetail, CorralonHeader } from "../../components";
 
 const Home = () => {
-  const myId = 1;
+  const myId = 1; //Idealmente esto se recupera con el id real del usuario
+  const [selected, setSelected] = useState(null);
+  const hasProductSelected = selected;
   const { isLoading, error, data } = useQuery(
     ["pedidos", myId],
     async () => await getPedidos(myId)
   );
+  const smallScreen = useBreakpointValue([true, true, false]);
 
   if (isLoading) return "Cargando...";
 
-  if (error) return "Algo salio mal: " + error.message;
+  if (error) return "Algo salio mal: " + error;
+
+  const backButtonVisible = smallScreen && hasProductSelected;
+  const listVisible = !smallScreen || (smallScreen && !backButtonVisible);
+  const detailVisible = !smallScreen || backButtonVisible;
 
   return (
-    <>
-      <h1>Home</h1>
-      {data.map((pedido) => (
-        <OrderListElement
-          key={pedido.id}
-          description={pedido.obra.descripcion}
-          date={pedido.fechaPedido}
+    <Grid h="100vh" templateColumns="30% 1fr">
+      <GridItem colSpan={2}>
+        <CorralonHeader
+          onMobileBackPressed={() => setSelected(null)}
+          isBackVisible={backButtonVisible}
         />
-      ))}
-    </>
+      </GridItem>
+      {listVisible && (
+        <GridItem
+          overflowX="hidden"
+          overflowY="scroll"
+          colSpan={smallScreen ? 2 : 1}
+          border="thin"
+        >
+          <OrderList pedidos={data} />
+        </GridItem>
+      )}
+      {detailVisible && (
+        <GridItem
+          overflowX="hidden"
+          overflowY="scroll"
+          colSpan={smallScreen ? 2 : 1}
+          display="flex"
+        >
+          <Divider orientation="vertical" />
+          <OrderDetail
+            pedido={selected}
+            onMobileBackPressed={() => setSelected(null)}
+          />
+        </GridItem>
+      )}
+    </Grid>
   );
 };
 

@@ -96,7 +96,7 @@ function generarDetalleMock() {
 function generarPedidoMock() {
   const id = faker.random.uuid();
   const daysBefore = Math.floor(Math.random() * 30) + 1;
-  const fechaPedido = dayjs().subtract(daysBefore, "days");
+  const fechaPedido = dayjs().subtract(daysBefore, "days").toISOString();
   const obra = {
     id: faker.random.uuid(),
     descripcion: faker.lorem.words(6),
