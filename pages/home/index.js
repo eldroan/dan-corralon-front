@@ -52,9 +52,9 @@ const Home = () => {
           overflowX="hidden"
           overflowY="scroll"
           colSpan={smallScreen ? 2 : 1}
-          display="flex"
+          display={smallScreen ? undefined : "flex"} // FixMe: Esto es un hack
         >
-          <Divider orientation="vertical" />
+          {listVisible && <Divider orientation="vertical" />}
           <OrderDetail
             pedido={selected}
             onMobileBackPressed={() => setSelected(null)}
