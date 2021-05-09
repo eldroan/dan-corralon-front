@@ -22,11 +22,11 @@ export default function OrderDetail({ pedido, onMobileBackPressed }) {
           spacing="4"
           justify="center"
           alignItems="center"
-          px={[4, 4, 10]}
+          px={[4, 10]}
           py={10}
           rounded="xl"
           background="gray.700"
-          mx={[4, 4, 20]}
+          mx={[4, 20]}
         >
           <QuestionOutlineIcon boxSize="14" />
           <Text fontSize="xl" textAlign="center">

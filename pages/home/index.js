@@ -1,11 +1,4 @@
-import {
-  Box,
-  Divider,
-  Flex,
-  Grid,
-  GridItem,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Divider, Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import { useQuery } from "react-query";
 import { getPedidos } from "../../api";
@@ -44,7 +37,7 @@ const Home = () => {
           colSpan={smallScreen ? 2 : 1}
           border="thin"
         >
-          <OrderList pedidos={data} />
+          <OrderList pedidos={data} setSelected={setSelected} />
         </GridItem>
       )}
       {detailVisible && (
