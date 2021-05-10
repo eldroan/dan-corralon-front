@@ -7,7 +7,7 @@ import { OrderList, OrderDetail, CorralonHeader } from "../../components";
 const Home = () => {
   const myId = 1; //Idealmente esto se recupera con el id real del usuario
   const [selected, setSelected] = useState(null);
-  const hasProductSelected = true;
+  const hasProductSelected = selected;
   const { isLoading, error, data } = useQuery(
     ["pedidos", myId],
     async () => await getPedidos(myId)
