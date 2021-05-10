@@ -7,7 +7,7 @@ import { OrderList, OrderDetail, CorralonHeader } from "../../components";
 const Home = () => {
   const myId = 1; //Idealmente esto se recupera con el id real del usuario
   const [selected, setSelected] = useState(null);
-  const hasProductSelected = selected;
+  const hasProductSelected = true;
   const { isLoading, error, data } = useQuery(
     ["pedidos", myId],
     async () => await getPedidos(myId)
@@ -23,8 +23,12 @@ const Home = () => {
   const detailVisible = !smallScreen || backButtonVisible;
 
   return (
-    <Grid h="100vh" templateColumns="30% 1fr">
-      <GridItem colSpan={2}>
+    <Grid
+      h="100vh"
+      templateColumns={["1fr", "1fr", "30% 1fr"]}
+      templateRows="auto 1fr"
+    >
+      <GridItem colSpan={2} rowSpan={1}>
         <CorralonHeader
           onMobileBackPressed={() => setSelected(null)}
           isBackVisible={backButtonVisible}
@@ -34,8 +38,10 @@ const Home = () => {
         <GridItem
           overflowX="hidden"
           overflowY="scroll"
-          colSpan={smallScreen ? 2 : 1}
-          border="thin"
+          borderRightColor="gray.700"
+          borderRightWidth={1}
+          rowSpan={1}
+          colSpan={1}
         >
           <OrderList pedidos={data} setSelected={setSelected} />
         </GridItem>
@@ -44,10 +50,10 @@ const Home = () => {
         <GridItem
           overflowX="hidden"
           overflowY="scroll"
-          colSpan={smallScreen ? 2 : 1}
-          display={smallScreen ? undefined : "flex"} // FixMe: Esto es un hack
+          rowSpan={1}
+          colSpan={1}
+          display="flex"
         >
-          {listVisible && <Divider orientation="vertical" />}
           <OrderDetail
             pedido={selected}
             onMobileBackPressed={() => setSelected(null)}

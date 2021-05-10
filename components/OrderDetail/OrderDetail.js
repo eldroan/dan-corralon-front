@@ -1,5 +1,5 @@
 import { QuestionOutlineIcon } from "@chakra-ui/icons";
-import { Divider, Flex, Stack, Text } from "@chakra-ui/react";
+import { Divider, Flex, Stack, Text, Box } from "@chakra-ui/react";
 
 /**
  * @param {{
@@ -16,11 +16,10 @@ import { Divider, Flex, Stack, Text } from "@chakra-ui/react";
 export default function OrderDetail({ pedido, onMobileBackPressed }) {
   if (!pedido)
     return (
-      <Flex justify="center" alignItems="center" overflow="hidden">
+      <Flex flex={1} alignItems="center">
         <Stack
           direction="column"
           spacing="4"
-          justify="center"
           alignItems="center"
           px={[4, 10]}
           py={10}
@@ -41,14 +40,5 @@ export default function OrderDetail({ pedido, onMobileBackPressed }) {
       </Flex>
     );
 
-  return (
-    <Flex
-      justify="center"
-      alignItems="center"
-      overflowY="scroll"
-      overflowX="hidden"
-    >
-      Holi, soy un detalle de producto
-    </Flex>
-  );
+  return <Box>Holi, soy un detalle de producto</Box>;
 }
