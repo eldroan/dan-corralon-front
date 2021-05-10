@@ -2,7 +2,12 @@ import { Divider, Grid, GridItem, useBreakpointValue } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import { useQuery } from "react-query";
 import { getPedidos } from "../../api";
-import { OrderList, OrderDetail, CorralonHeader } from "../../components";
+import {
+  OrderList,
+  OrderDetail,
+  CorralonHeader,
+  Loading,
+} from "../../components";
 
 const Home = () => {
   const myId = 1; //Idealmente esto se recupera con el id real del usuario
@@ -14,7 +19,7 @@ const Home = () => {
   );
   const smallScreen = useBreakpointValue([true, true, false]);
 
-  if (isLoading) return "Cargando...";
+  if (isLoading) return <Loading />;
 
   if (error) return "Algo salio mal: " + error;
 

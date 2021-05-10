@@ -16,7 +16,7 @@ import { Divider, Flex, Stack, Text, Box } from "@chakra-ui/react";
 export default function OrderDetail({ pedido, onMobileBackPressed }) {
   if (!pedido)
     return (
-      <Flex flex={1} alignItems="center">
+      <Flex flex={1} alignItems="center" justifyContent="center">
         <Stack
           direction="column"
           spacing="4"
