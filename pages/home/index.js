@@ -61,7 +61,8 @@ const Home = () => {
         >
           <OrderDetail
             pedido={selected}
-            onMobileBackPressed={() => setSelected(null)}
+            isBackVisible={backButtonVisible}
+            onClearSelectionPressed={() => setSelected(null)}
           />
         </GridItem>
       )}
