@@ -8,8 +8,6 @@ import {
   InputLeftElement,
   InputRightElement,
   FormControl,
-  Container,
-  Text,
   useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
