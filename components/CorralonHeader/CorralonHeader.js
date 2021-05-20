@@ -15,6 +15,7 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  useToast,
 } from "@chakra-ui/react";
 import { MdDirectionsBus } from "react-icons/md";
 import { useRouter } from "next/router";
@@ -25,6 +26,7 @@ import { useRouter } from "next/router";
 export default function CorralonHeader({ onMobileBackPressed, isBackVisible }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const toast = useToast();
 
   return (
     <>
@@ -72,12 +74,22 @@ export default function CorralonHeader({ onMobileBackPressed, isBackVisible }) {
           <DrawerBody px={0} pt={0}>
             <DrawerButton
               text="Listado de pedidos"
-              onClick={() => router.push("/home")}
+              onClick={() => {
+                onClose(); // Cerramos el drawer
+                router.push("/home");
+              }}
             />
             <DrawerButton
               text="Crear Pedido"
               onClick={() => {
-                alert("No estoy implementado :c");
+                onClose(); // Cerramos el drawer
+                toast({
+                  title: "Info",
+                  description: "No estoy implementado...",
+                  status: "info",
+                  duration: 9000,
+                  isClosable: true,
+                });
               }}
             />
           </DrawerBody>
