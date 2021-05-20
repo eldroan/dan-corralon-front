@@ -8,6 +8,7 @@ import {
   CorralonHeader,
   Loading,
 } from "../../components";
+import { useSmallScreenDetector } from "../../hooks";
 
 const Home = () => {
   const myId = 1; //Idealmente esto se recupera con el id real del usuario
@@ -17,15 +18,15 @@ const Home = () => {
     ["pedidos", myId],
     async () => await getPedidos(myId)
   );
-  const smallScreen = useBreakpointValue([true, true, false]);
+  const isSmallScreen = useSmallScreenDetector();
 
   if (isLoading) return <Loading />;
 
   if (error) return "Algo salio mal: " + error;
 
-  const backButtonVisible = smallScreen && hasProductSelected;
-  const listVisible = !smallScreen || (smallScreen && !backButtonVisible);
-  const detailVisible = !smallScreen || backButtonVisible;
+  const isBackVisible = isSmallScreen && hasProductSelected;
+  const isListVisible = !isSmallScreen || (isSmallScreen && !isBackVisible);
+  const isDetailVisible = !isSmallScreen || isBackVisible;
 
   return (
     <Grid
@@ -36,10 +37,10 @@ const Home = () => {
       <GridItem colSpan={2} rowSpan={1}>
         <CorralonHeader
           onMobileBackPressed={() => setSelected(null)}
-          isBackVisible={backButtonVisible}
+          isBackVisible={isBackVisible}
         />
       </GridItem>
-      {listVisible && (
+      {isListVisible && (
         <GridItem
           overflowX="hidden"
           overflowY="scroll"
@@ -51,7 +52,7 @@ const Home = () => {
           <OrderList pedidos={data} setSelected={setSelected} />
         </GridItem>
       )}
-      {detailVisible && (
+      {isDetailVisible && (
         <GridItem
           overflowX="hidden"
           overflowY="scroll"
@@ -61,7 +62,7 @@ const Home = () => {
         >
           <OrderDetail
             pedido={selected}
-            isBackVisible={backButtonVisible}
+            isBackVisible={isBackVisible}
             onClearSelectionPressed={() => setSelected(null)}
           />
         </GridItem>
