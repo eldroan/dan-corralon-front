@@ -47,7 +47,13 @@ const Login = () => {
 
   return (
     <Flex height="100vh" alignItems="center" justifyContent="center">
-      <Flex direction="column" p={12} rounded={6} background="gray.700">
+      <Flex
+        direction="column"
+        p={[6, 12]}
+        rounded={6}
+        background="gray.700"
+        mx={4}
+      >
         <Heading mb={6}>Ingresar al corralon!</Heading>
 
         <form onSubmit={handleSubmit}>
