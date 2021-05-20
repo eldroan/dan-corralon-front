@@ -87,7 +87,13 @@ const Login = () => {
             </InputGroup>
           </FormControl>
 
-          <Button mt={6} type="submit" isActive={isLogginIn}>
+          <Button
+            mt={6}
+            type="submit"
+            isActive={isLogginIn}
+            isLoading={isLogginIn}
+            loadingText="Ingresando..."
+          >
             Ingresar
           </Button>
         </form>
