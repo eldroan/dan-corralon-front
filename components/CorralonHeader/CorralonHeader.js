@@ -1,4 +1,4 @@
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Heading,
   Flex,
@@ -8,18 +8,24 @@ import {
   Button,
   Divider,
   IconButton,
-  Box,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 import { MdDirectionsBus } from "react-icons/md";
+import { useRouter } from "next/router";
 
 /**
  * @param {{onMobileBackPressed: VoidFunction, isBackVisible: boolean}} props
  */
-export default function CorralonHeader({
-  onMobileBackPressed,
-  isBackVisible,
-  heigth,
-}) {
+export default function CorralonHeader({ onMobileBackPressed, isBackVisible }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+
   return (
     <>
       <Flex
@@ -38,7 +44,12 @@ export default function CorralonHeader({
               onClick={() => onMobileBackPressed()}
             />
           ) : (
-            <Icon as={MdDirectionsBus} boxSize={8} />
+            <IconButton
+              aria-label="Menu"
+              icon={<Icon as={MdDirectionsBus} boxSize={8} />}
+              rounded="3xl"
+              onClick={onOpen}
+            />
           )}
           <Heading pl={4}>Corralón</Heading>
         </HStack>
@@ -50,6 +61,41 @@ export default function CorralonHeader({
         </HStack>
       </Flex>
       <Divider orientation="horizontal" w="100%" h="1px" />
+
+      {/** Drawer */}
+      <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerHeader borderBottomWidth="1px">Corralon</DrawerHeader>
+          <DrawerCloseButton />
+
+          <DrawerBody px={0} pt={0}>
+            <DrawerButton
+              text="Listado de pedidos"
+              onClick={() => router.push("/home")}
+            />
+            <DrawerButton
+              text="Crear Pedido"
+              onClick={() => {
+                alert("No estoy implementado :c");
+              }}
+            />
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 }
+
+const DrawerButton = ({ text, onClick }) => (
+  <Button
+    isFullWidth
+    justifyContent="flex-start"
+    onClick={onClick}
+    rounded={0}
+    borderBottomWidth={1}
+    leftIcon={<ChevronRightIcon />}
+  >
+    {text}
+  </Button>
+);
