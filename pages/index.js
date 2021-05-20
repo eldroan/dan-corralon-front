@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { loginUser } from "../api";
+import { ROUTES } from "../constants";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +34,7 @@ const Login = () => {
 
     if (result.success) {
       // Navegamos a Home
-      router.push("/home");
+      router.push(ROUTES.HOME);
     } else {
       toast({
         title: "Error",

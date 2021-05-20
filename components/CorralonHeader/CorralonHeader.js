@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { MdDirectionsBus } from "react-icons/md";
 import { useRouter } from "next/router";
+import { ROUTES } from "../../constants";
 
 /**
  * @param {{onMobileBackPressed: VoidFunction, isBackVisible: boolean}} props
@@ -57,7 +58,16 @@ export default function CorralonHeader({ onMobileBackPressed, isBackVisible }) {
         </HStack>
         <HStack>
           <Avatar src="https://url.que.no.existe" size="sm" mr={2} />
-          <Button size="sm" colorScheme="red" variant="outline">
+          <Button
+            size="sm"
+            colorScheme="red"
+            variant="outline"
+            onClick={() => {
+              // Aca solo estamos navegando, idealmente la navegación al login debería ser automatica
+              // si el usuario no esta logueado, en ese caso solo seria necesario borrar la sesion actual
+              router.push(ROUTES.LOGIN);
+            }}
+          >
             Salir
           </Button>
         </HStack>
@@ -76,7 +86,7 @@ export default function CorralonHeader({ onMobileBackPressed, isBackVisible }) {
               text="Listado de pedidos"
               onClick={() => {
                 onClose(); // Cerramos el drawer
-                router.push("/home");
+                router.push(ROUTES.HOME);
               }}
             />
             <DrawerButton
